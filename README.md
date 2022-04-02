@@ -1,21 +1,17 @@
 # b5workflow-pc
 
 #### 介绍
-基于jsplumb实现的流程设计前端
+基于jsplumb+jquery实现的流程设计前端，方便二次修改开发
 
-#### 软件架构
-软件架构说明
+#### 演示地址
 
+http://b5flow.b5net.com
 
-#### 安装教程
+#### 效果图
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+![Image text](https://gitee.com/b5net/img-folder/raw/master/flow.png)
 
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
+#### 功能
+1. 支持节点拖放添加（使用jquery-ui实现）
+2. 支持流程图json查看
+3. 支持给定json数据还原流程图
