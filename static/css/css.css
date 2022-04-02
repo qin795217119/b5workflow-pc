@@ -1,0 +1,72 @@
+*{margin: 0;padding: 0;box-sizing: border-box}
+*::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+*::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #BBB;
+    height: 20px;
+}
+*::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+html,body,#app{width: 100%;height: 100%;overflow: hidden;background-color: #FFF}
+
+
+.b5bpm-box{position: relative;width: 100%;height: 100%;overflow: hidden}
+.b5bpm-header{height: 50px;padding: 0 10px;line-height: 50px;display: flex;align-items: center;justify-content: space-between;font-size: 14px;color: #555}
+.b5bpm-header-title{font-size: 15px;color: #000;font-weight: bold}
+.b5bmp-header-oplist{display: flex;align-items: center;justify-content: flex-end;}
+.b5bpm-header-opcell{height: 40px;line-height: 40px;margin-left: 30px;cursor: pointer;padding: 0 5px;}
+.b5bpm-header-opcell:hover{color: #1879ff}
+.b5bpm-content{height: calc(100% - 55px);display: flex;position: relative;overflow: hidden;width: 100%;border: 1px solid #EEE}
+.b5bpm-menu{width: 15%;min-width:200px;flex-shrink: 0;overflow: auto;border-right: 1px solid #EEE;}
+.b5bpm-menu-list{display: flex;justify-content: flex-start;align-items: center;flex-direction: column;width: 100%;}
+.b5bpm-cc-header{height: 40px;padding: 10px;line-height: 20px;font-size: 14px;border-bottom: 1px solid #dce3e8;background: #f1f3f4;color: #000;}
+.b5bpm-operate{width: 23%;min-width:300px;flex-shrink: 0;border-left: 1px solid #EEE;}
+.b5bpm-main{width: 100%;height: 100%;overflow: auto;position: relative;}
+.flow-map{width: 100%;min-width: 2000px;height: 100%;min-height:5000px;position: relative;background-image: linear-gradient(#DDD 1px,transparent 0), linear-gradient(90deg, #DDD 1px,transparent 0), linear-gradient(hsla(120,0%,50%,.1) 1px,transparent 0), linear-gradient(90deg,hsla(120,0%,50%,.1) 1px,transparent 0);background-size: 50px 50px,50px 50px,10px 10px,10px 10px;overflow: hidden}
+
+.flow-map-operate{position: absolute;top: 0;right: 0;display: flex;align-items: center;justify-content: space-around;z-index: 10}
+.flow-map-opcell{padding: 10px;font-size: 15px;color: #666;cursor: pointer;background-color: #FFF;}
+.flow-map-opcell i{pointer-events: none}
+.flow-map-opcell:hover{color: #1879ff;}
+/**
+节点
+ */
+.b5bpm-mdc{display: inline-block;position: absolute;padding: 3px;}
+.b5bpm-mdc-con{font-size: 12px;display: flex;align-items: center;justify-content: center;user-select: none;color: #565758;padding: 2px;cursor: move;line-height: 15px;white-space: nowrap}
+.b5bpm-mdc-con span{pointer-events: none}
+.b5bpm-mdc-start .b5bpm-mdc-con{width: 60px;height: 60px;border-radius: 50%;border: 3px solid #03AD3B;background: rgba(3,173,59,.4)}
+.b5bpm-mdc-end .b5bpm-mdc-con{width: 60px;height: 60px;border-radius: 50%;border: 3px solid #FF0000;background: rgba(255,0,0,.4)}
+.b5bpm-mdc-process .b5bpm-mdc-con{width: 100px;border: 3px solid #5062F7;border-radius: 8px;height: 40px;background: rgba(80,98,247,.4)}
+.b5bpm-mdc-gateway.b5bpm-mdc{padding: 8px}
+.b5bpm-mdc-gateway .b5bpm-mdc-con{width: 50px;height: 50px;border: 3px solid #F58308;transform: rotate(45deg);margin: 5px;background: rgba(245,131,8,.4)}
+.b5bpm-mdc-gateway .b5bpm-mdc-con span{transform: rotate(-45deg);}
+.b5bpm-menu .b5bpm-mdc{margin-top: 20px;position: relative}
+
+/**
+选择的节点
+ */
+.dropped.active .b5bpm-mdc-con{border-style: dashed;color: #1879ff;font-weight: bold}
+
+/**
+编辑节点
+ */
+.b5bpm-edit{padding: 10px}
+.b5bpm-edit-line{width: 100%;min-height: 40px;margin-bottom: 10px;display: flex;align-items: center;justify-content: center;}
+.b5bpm-edit-label{height: 100%;width: 80px;flex-shrink: 0;color: #000;font-size: 14px;padding-right: 10px;text-align: right}
+.b5bpm-edit-content{width: 100%;height: 100%;}
+.b5bpm-edit-input{padding: 2px 5px;border: 1px solid #EEE;border-radius: 4px;width: 100%;height: 36px;line-height: 36px;}
+textarea.b5bpm-edit-input{height: 46px;line-height: 20px;}
+.b5bpm-edit-input:focus{outline:none;border-color: #1879ff}
+
+/**
+插件重写
+ */
+.jtk-endpoint{opacity: 0}
+.b5bpm-endpoint.jtk-endpoint{opacity: 1}
+.b5bpm-line-label{font-size: 10px;padding: 2px 4px;border: 1px solid #CCC;background-color: #FFF;color: #555}
+.modal{background: rgba(0,0,0,.2)}
+
