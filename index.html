@@ -34,20 +34,25 @@
             </div>
         </div>
         <div class="b5bpm-content">
+            <!--左侧菜单节点-->
             <div class="b5bpm-menu">
                 <div class="b5bpm-cc-header">选择节点</div>
                 <div class="b5bpm-menu-list">
                     <div v-for="(item,key) in nodeList" :class="['b5bpm-mdc', 'draggable', 'b5bpm-mdc-'+key]" :data-type="key"><div :class="['b5bpm-mdc-con']"><span>{{item.title}}</span></div></div>
                 </div>
             </div>
-            <div class="b5bpm-main">
+            <!--中间操作-->
+            <div class="b5bpm-center">
                 <div class="flow-map-operate">
                     <div class="flow-map-opcell" @click="mapSize" data-type="add"><i class="glyphicon glyphicon-zoom-in"></i></div>
                     <div class="flow-map-opcell" @click="mapSize" data-type="repeat"><i class="glyphicon glyphicon-repeat"></i></div>
                     <div class="flow-map-opcell" @click="mapSize" data-type="dec"><i class="glyphicon glyphicon-zoom-out"></i></div>
                 </div>
-                <div class="flow-map droppable" :style="{transform:'scale('+size+','+size+')',transformOrigin:'0 0 0'}"></div>
+                <div class="b5bpm-main">
+                    <div class="flow-map droppable" :style="{transform:'scale('+size+','+size+')',transformOrigin:'0 0 0'}"></div>
+                </div>
             </div>
+            <!--选择的节点信息编辑-->
             <div class="b5bpm-operate">
                 <div class="b5bpm-cc-header">编辑节点</div>
                 <div class="b5bpm-edit">
@@ -148,6 +153,7 @@
         </div>
     </div>
 
+<!--  弹出json代码框  -->
     <div class="modal fade in" tabindex="-1" role="dialog" v-if="jsonShow" style="display: block">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -167,7 +173,7 @@
 <script src="./static/plugins/jquery-ui-1.10.4.min.js"></script>
 <script src="./static/plugins/vue/vue.min.js"></script>
 <script src="./static/plugins/codemirror/js/codemirror.js"></script>
+<script src="./static/js/mouserect.js"></script>
 <script src="./static/js/myplumb.js"></script>
-
 </body>
 </html>

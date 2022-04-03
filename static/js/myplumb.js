@@ -429,7 +429,10 @@
                         break;
                     }
                 }
-                this.checkDropperSave(index);
+                if(index !== this.checkedIndex){
+                    this.checkDropperSave(index);
+                }
+                e.stopPropagation();
             },
             //选中节点
             checkDropperSave(index){
@@ -516,7 +519,6 @@
                     size -= 0.1;
                 }
                 this.size = size;
-
             },
             //获取node的label
             getNodeLabel(type,pos){
@@ -604,7 +606,6 @@
                 },200);
 
             },
-
         }
     });
 
@@ -613,13 +614,27 @@
         $(".jtk-endpoint").addClass("b5bpm-endpoint");
     }).on("mouseout",".dropped,.jtk-endpoint",function (){
         $(".jtk-endpoint").removeClass("b5bpm-endpoint");
-    })
+    });
     //点击空白 未选择
-    $(".flow-map").click(function (e){
-        if(e.target === this){
+    $(".flow-map").on("click",function (e){
+        if(!$(e.currentTarget).hasClass("dropped")){
             app.checkDropperSave(-1)
         }
-    })
+    });
+
+    //开启选择框和多个拖动
+    new mouseRect("flow-map");
+    $(".flow-map").selectable({
+        filter:".dropped",
+        stop:function (event, ui ){
+            $(".ui-selected").each(function (){
+                app.jsPlumbObj.addToDragSelection($(this).attr("id"))
+            })
+        },
+        unselected: function (event,ui){
+            app.jsPlumbObj.removeFromDragSelection($(ui.unselected).attr("id"))
+        }
+    });
     //拖放初始化 不放在vue中，是因为删除节点时会出现错误
     function setup_draggable() {
         $(".draggable").draggable({//拖动
