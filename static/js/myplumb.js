@@ -716,6 +716,10 @@
                 //滚动条位置
                 var scroll_left = parseInt($(".b5bpm-main").scrollLeft());
                 var scroll_top = parseInt($(".b5bpm-main").scrollTop());
+                var left = position.left - drop_left + scroll_left
+                var top = position.top - drop_top + scroll_top
+                left = parseInt(left  * 100 / app.size)/100
+                top = parseInt(top * 100 / app.size)/100
                 var randCode = app.randCode()
                 var data = {
                     type: type,
@@ -728,14 +732,14 @@
                     user_name:"",//人员名称
                     condition:"",//网关条件
                     condition_type:"and",//类型
-                    left:(position.left - drop_left + scroll_left)+"px",//类型
-                    top:(position.top - drop_top + scroll_top)+"px",//类型
+                    left:left+"px",//类型
+                    top:top+"px",//类型
                     remark: "",
                 }
                 $orig.clone().addClass("dropped").attr("data-id",randCode).removeClass("draggable").attr("id",randCode).bind("click",app.checkDropped).css({
                     "position": "absolute",
-                    "left": (position.left - drop_left + scroll_left)+"px",
-                    "top": (position.top - drop_top + scroll_top)+"px"
+                    "left": left+"px",
+                    "top": top+"px"
                 }).appendTo(this);
                 app.addList(data);
             }
