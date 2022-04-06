@@ -451,13 +451,12 @@
                         containment: "parent",
                         //拖动位置监听，更新数据
                         stop:function (info){
-                            var finalPos = info.finalPos
-                            for (var i = 0; i < _this.list.length; i++) {
-                                if(_this.list[i].id === id){
-                                    _this.list[i].left = finalPos[0]+'px';
-                                    _this.list[i].top = finalPos[1]+'px';
-                                    break;
-                                }
+                            var selects = info.selection;
+                            for (var i = 0; i < selects.length; i++) {
+                                var id = $(selects[i][0]).attr('id');
+                                var left = selects[i][1]['left'];
+                                var top = selects[i][1]['top'];
+                                _this.changePos(id,left,top);
                             }
                         }
                     })
@@ -539,15 +538,27 @@
                     location: 0.5
                 }]
             },
+            //修改list的位置
+            changePos(id,left,top){
+                for (var j = 0; j < this.list.length; j++) {
+                    if(this.list[j].id === id){
+                        this.list[j].left = left+'px';
+                        this.list[j].top = top+'px';
+                        break;
+                    }
+                }
+            },
             //对齐方法
             alignClick(type){
                 if($(".ui-selected").length<2) return false;
                 var firstObj = $(".ui-selected").eq(0);
                 var left = firstObj.position().left;
                 var width = firstObj.width();
+                var _this = this;
                 if(type === 'left'){
                     $(".ui-selected").each(function (){
                         $(this).css('left',left+'px');
+                        _this.changePos($(this).attr('id'),left,$(this).position().top);
                     })
                 }else if (type === 'right'){
                     var right = left+width;
@@ -555,6 +566,7 @@
                         var cellWidth = $(this).width();
                         var newLeft = right - cellWidth;
                         $(this).css('left',newLeft+'px');
+                        _this.changePos($(this).attr('id'),newLeft,$(this).position().top);
                     })
                 }else if (type === 'center'){
                     var center = left+parseInt(width/2);
@@ -562,15 +574,17 @@
                         var cellWidth = $(this).width();
                         var newLeft = center - parseInt(cellWidth/2);
                         $(this).css('left',newLeft+'px');
+                        _this.changePos($(this).attr('id'),newLeft,$(this).position().top);
                     })
                 }else if (type === 'middle'){
-                    var top = firstObj.position().top;
                     var height = firstObj.height();
+                    var top = firstObj.position().top;
                     var middle = top+parseInt(height/2);
                     $(".ui-selected").each(function (){
                         var cellHeight = $(this).height();
                         var newTop = middle - parseInt(cellHeight/2);
                         $(this).css('top',newTop+'px');
+                        _this.changePos($(this).attr('id'),$(this).position().left,newTop);
                     })
                 }
                 this.jsPlumbObj.repaintEverything();
