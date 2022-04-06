@@ -705,10 +705,10 @@
                 //如果是添加的元素
                 var type = $orig.data("type");
                 var list = [...app.list];
-                if (type === "start") {
+                if (type === "start" || type === 'end') {
                     for (var i = 0; i < list.length; i++) {
                         if(list[i].type === type){
-                            console.log("开始只能存在一个")
+                            console.log("开始或结束只能存在一个")
                             return false
                         }
                     }
