@@ -498,7 +498,7 @@
                 $(".flow-map").html('');
                 this.jsPlumbObj.deleteEveryConnection();
                 this.jsPlumbObj.deleteEveryEndpoint();
-                this.jsPlumbObj.repaintEverything();
+                // this.jsPlumbObj.repaintEverything();
             },
             //保存节点信息
             saveNode(){
@@ -539,6 +539,42 @@
                     location: 0.5
                 }]
             },
+            //对齐方法
+            alignClick(type){
+                if($(".ui-selected").length<2) return false;
+                var firstObj = $(".ui-selected").eq(0);
+                var left = firstObj.position().left;
+                var width = firstObj.width();
+                if(type === 'left'){
+                    $(".ui-selected").each(function (){
+                        $(this).css('left',left+'px');
+                    })
+                }else if (type === 'right'){
+                    var right = left+width;
+                    $(".ui-selected").each(function (){
+                        var cellWidth = $(this).width();
+                        var newLeft = right - cellWidth;
+                        $(this).css('left',newLeft+'px');
+                    })
+                }else if (type === 'center'){
+                    var center = left+parseInt(width/2);
+                    $(".ui-selected").each(function (){
+                        var cellWidth = $(this).width();
+                        var newLeft = center - parseInt(cellWidth/2);
+                        $(this).css('left',newLeft+'px');
+                    })
+                }else if (type === 'middle'){
+                    var top = firstObj.position().top;
+                    var height = firstObj.height();
+                    var middle = top+parseInt(height/2);
+                    $(".ui-selected").each(function (){
+                        var cellHeight = $(this).height();
+                        var newTop = middle - parseInt(cellHeight/2);
+                        $(this).css('top',newTop+'px');
+                    })
+                }
+                this.jsPlumbObj.repaintEverything();
+            },
             //生成随机数
             randCode(len){
                 len = len || 11;
@@ -570,7 +606,6 @@
                         showHint: true,
                     });
                 })
-
             },
             hideJson(){
                 this.jsonShow = false
@@ -583,7 +618,7 @@
                     return false;
                 }
                 this.rest();
-                var test = this.test[type]
+                var test = JSON.parse(JSON.stringify(this.test[type]));
                 //添加节点元素
                 var list = test.nodeList;
                 for (var i = 0; i < list.length; i++) {
@@ -635,6 +670,7 @@
             app.jsPlumbObj.removeFromDragSelection($(ui.unselected).attr("id"))
         }
     });
+
     //拖放初始化 不放在vue中，是因为删除节点时会出现错误
     function setup_draggable() {
         $(".draggable").draggable({//拖动

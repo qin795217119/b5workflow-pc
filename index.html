@@ -14,6 +14,12 @@
     <div class="b5bpm-box">
         <div class="b5bpm-header">
             <div class="b5bpm-header-title">{{title}}</div>
+            <div class="b5bpm-header-align">
+                <div class="b5bpm-align-cell" title="左对齐" @click="alignClick('left')"><i class="glyphicon glyphicon-object-align-left"></i></div>
+                <div class="b5bpm-align-cell" title="垂直居中" @click="alignClick('center')"><i class="glyphicon glyphicon-object-align-vertical"></i></div>
+                <div class="b5bpm-align-cell" title="右对齐" @click="alignClick('right')"><i class="glyphicon glyphicon-object-align-right"></i></div>
+                <div class="b5bpm-align-cell" title="水平居中" @click="alignClick('middle')"><i class="glyphicon glyphicon-object-align-horizontal"></i></div>
+            </div>
             <div class="b5bmp-header-oplist">
                 <div class="b5bpm-header-opcell" @click="showTest" data-type="p1">
                     <i class="glyphicon glyphicon-eye-open"></i> 显示流程1

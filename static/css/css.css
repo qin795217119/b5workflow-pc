@@ -15,8 +15,10 @@ html,body,#app{width: 100%;height: 100%;overflow: hidden;background-color: #FFF}
 
 
 .b5bpm-box{position: relative;width: 100%;height: 100%;overflow: hidden}
-.b5bpm-header{height: 50px;padding: 0 10px;line-height: 50px;display: flex;align-items: center;justify-content: space-between;font-size: 14px;color: #555}
-.b5bpm-header-title{font-size: 15px;color: #000;font-weight: bold}
+.b5bpm-header{height: 50px;padding: 0 10px;line-height: 50px;display: flex;align-items: center;justify-content: space-between;font-size: 14px;color: #555;}
+.b5bpm-header-title{font-size: 15px;color: #000;font-weight: bold;}
+.b5bpm-header-align{display: flex;align-items: center;justify-content: center;}
+.b5bpm-align-cell{padding:0 10px;display: inline-block;cursor: pointer;}
 .b5bmp-header-oplist{display: flex;align-items: center;justify-content: flex-end;}
 .b5bpm-header-opcell{height: 40px;line-height: 40px;margin-left: 30px;cursor: pointer;padding: 0 5px;}
 .b5bpm-header-opcell:hover{color: #1879ff}
@@ -31,12 +33,17 @@ html,body,#app{width: 100%;height: 100%;overflow: hidden;background-color: #FFF}
 
 .flow-map-operate{position: absolute;top: 0;right: 0;display: flex;align-items: center;justify-content: space-around;z-index: 10}
 .flow-map-opcell{padding: 10px;font-size: 15px;color: #666;cursor: pointer;background-color: #FFF;}
-.flow-map-opcell i{pointer-events: none}
+.flow-map-opcell i,.glyphicon{pointer-events: none}
 .flow-map-opcell:hover{color: #1879ff;}
+
+/**
+对齐
+ */
+
 /**
 节点
  */
-.b5bpm-mdc{display: inline-block;position: absolute;padding: 3px;}
+.b5bpm-mdc{display: inline-block;position: absolute;padding: 3px 8px;}
 .b5bpm-mdc-con{font-size: 12px;display: flex;align-items: center;justify-content: center;user-select: none;color: #565758;padding: 2px;cursor: move;line-height: 15px;white-space: nowrap}
 .b5bpm-mdc-con span{pointer-events: none}
 .b5bpm-mdc-start .b5bpm-mdc-con{width: 60px;height: 60px;border-radius: 50%;border: 3px solid #03AD3B;background: rgba(3,173,59,.4)}
