@@ -376,14 +376,22 @@
         mounted(){
             setup_draggable();
             this.jsPlumbObj = jsPlumb.getInstance();
-            //创建连线监听
-            this.jsPlumbObj.bind("connection",(info)=>{
-                var type = info.source.dataset.type;
-                var from_pos = info.sourceEndpoint.anchor.hasOwnProperty('anchors')?info.sourceEndpoint.anchor.anchors[0].type:info.sourceEndpoint.anchor.type;
-                var to_pos = info.targetEndpoint.anchor.hasOwnProperty('anchors')?info.targetEndpoint.anchor.anchors[0].type:info.targetEndpoint.anchor.type;
-                var label = this.getNodeLabel(type,from_pos);
-                this.lineList.push({from:info.sourceId,to:info.targetId,label:label?label:"",from_pos:from_pos,to_pos:to_pos});
-            });
+            //创建连线监听 ,在已存在的上编辑会不准 故使用getLineList来获取所有的
+            // this.jsPlumbObj.bind("connection",(info)=>{
+            //     var type = info.source.dataset.type;
+            //     var from_pos = info.sourceEndpoint.anchor.hasOwnProperty('anchors')?info.sourceEndpoint.anchor.anchors[0].type:info.sourceEndpoint.anchor.type;
+            //     var to_pos = info.targetEndpoint.anchor.hasOwnProperty('anchors')?info.targetEndpoint.anchor.anchors[0].type:info.targetEndpoint.anchor.type;
+            //     var label = this.getNodeLabel(type,from_pos);
+            //     this.lineList.push({from:info.sourceId,to:info.targetId,label:label?label:"",from_pos:from_pos,to_pos:to_pos});
+            // });
+            //删除连线监听 ,在已存在的上编辑会不准
+            // this.jsPlumbObj.bind("connectionDetached",(info)=>{
+            //     for (var i = 0; i < this.lineList.length; i++) {
+            //         if(this.lineList[i].from === info.sourceId && this.lineList[i].to === info.targetId){
+            //             this.lineList.splice(i,1);
+            //         }
+            //     }
+            // });
             //创建连线前监听 不能自己连接自己
             this.jsPlumbObj.bind("beforeDrop", (info) => {
                 if(info.sourceId === info.targetId){
@@ -392,14 +400,6 @@
                 }
                 return true;
             })
-            //删除连线监听
-            this.jsPlumbObj.bind("connectionDetached",(info)=>{
-                for (var i = 0; i < this.lineList.length; i++) {
-                    if(this.lineList[i].from === info.sourceId && this.lineList[i].to === info.targetId){
-                        this.lineList.splice(i,1);
-                    }
-                }
-            });
             //双击删除连线事件
             this.jsPlumbObj.bind("dblclick",(connection, e)=>{
                 if(confirm("确定删除该连线吗？")){
@@ -600,11 +600,32 @@
                 }
                 return new Date().getTime()+rand;
             },
+            //获取所有连线信息
+            getLineList(){
+                var list = this.jsPlumbObj.getAllConnections();
+                var lineList = [];
+                for (var i = 0; i < list.length; i++) {
+                    var type =list[i].source.dataset.type
+                    var from_pos = list[i].endpoints[0].anchor.type
+                    var label = this.getNodeLabel(type,from_pos);
+                    var data = {
+                        from:list[i].sourceId,
+                        to:list[i].targetId,
+                        label:label?label:"",
+                        from_pos:list[i].endpoints[0].anchor.type,
+                        to_pos:list[i].endpoints[1].anchor.type
+                    };
+                    lineList.push(data);
+                }
+                this.lineList = lineList;
+                return lineList;
+            },
             //查看流程json
             showJson(){
+                var lineList = this.getLineList();
                 var title = this.title
                 var nodeList = this.list
-                var lineList = this.lineList
+                // var lineList = this.lineList
                 this.nodeJson = {title:title,node:nodeList,line:lineList}
                 this.jsonShow = true
                 this.$nextTick(()=>{
